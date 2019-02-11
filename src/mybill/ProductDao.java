@@ -77,15 +77,16 @@ public class ProductDao {
                 discount = rs.getInt("discount");
                 total_unit = rs.getInt("total_unit");
             }
-             
-        } catch (SQLException e) {
+             conn.close();
+        }
+        catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
         product pro = new product(barcode_id, product_name, product_desc, mrp, discount, total_unit);
         return pro;
     }
-    public static product selectAll(){
+    public static product selectAllProducts(){
         String sql = "SELECT * FROM product";
         String product_name="";
         String barcode_id="";
@@ -99,15 +100,17 @@ public class ProductDao {
              ResultSet rs    = stmt.executeQuery(sql);
            
             while (rs.next()) {
-                barcode_id=rs.getString(barcode_id);
+                barcode_id=rs.getString("barcode_id");
                 product_name=rs.getString("product_name");
                 product_desc=rs.getString("product_desc");
                 mrp = rs.getInt("mrp");
                 discount = rs.getInt("discount");
                 total_unit = rs.getInt("total_unit");
             }
+            conn.close();
              
-        } catch (SQLException e) {
+        } 
+        catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }

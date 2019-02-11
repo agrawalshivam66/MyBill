@@ -5,6 +5,9 @@
  */
 package mybill;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Shivam-PC
@@ -18,14 +21,12 @@ public class viewProducts extends javax.swing.JFrame {
         initComponents();
         displayProducts();
     }
-      Static void displayProducts(){
-           product pro = ProductDao.selectAll();
+      void displayProducts(){
+           product pro = ProductDao.selectAllProducts();
             if (pro==null){
-                JOptionPane.showMessageDialog(createBill.this,"Sorry no product not found");
-                setfocus();
-                return;
+                JOptionPane.showMessageDialog(viewProducts.this,"Sorry no product not found");
             }
-            DefaultTableModel model = (DefaultTableModel) AllproductTable.getModel();
+            DefaultTableModel model = (DefaultTableModel) AllProductsTable.getModel();
             int mrp = pro.getMrp();
             int discount = pro.getDiscount();
             int total_unit = pro.getTotal_unit();
@@ -43,13 +44,13 @@ public class viewProducts extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        AllProductsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        AllProductsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Barcode ID", "Product Name", "Product Description", "MRP", "Discount ", "Total Unit"
@@ -70,7 +71,7 @@ public class viewProducts extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(AllProductsTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,7 +127,7 @@ public class viewProducts extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable AllProductsTable;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

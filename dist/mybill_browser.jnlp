@@ -12,7 +12,7 @@
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
     <jar href="lib/sqlite-jdbc-3.23.1.jar" size="6733696" download="eager" />
-    <jar href="mybill.jar" size="43917" download="eager" />
+    <jar href="mybill.jar" size="48951" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="mybill.addProduct"  name="mybill" >
   </applet-desc>
