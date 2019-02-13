@@ -68,6 +68,10 @@ public class ProductDao {
             Connection conn = productDB.getConnection();     
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql);
+             
+             if (!rs.isBeforeFirst()) {
+                 return null;
+             }
            
             while (rs.next()) {
                 product_name=rs.getString("product_name");
@@ -76,6 +80,8 @@ public class ProductDao {
                 discount = rs.getInt("discount");
                 total_unit = rs.getInt("total_unit");
             }
+            
+            
              
         } catch (SQLException e) {
             System.out.println(e.getMessage());
