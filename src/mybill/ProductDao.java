@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class ProductDao {
 
@@ -55,11 +56,9 @@ public class ProductDao {
 		return status;
 	}
         
-           /**
-     * select all rows in the warehouses table
-     */
-    public static product selectAll(String barcode_id){
-        String sql = "SELECT * FROM product where barcode_id ="+barcode_id;
+       
+       public static product selectAll(String barcode_id){
+        String sql = "SELECT * FROM product where barcode_id='"+barcode_id+"';";
         String product_name="";
         String product_desc="";
         int mrp=0;
@@ -77,16 +76,17 @@ public class ProductDao {
                 discount = rs.getInt("discount");
                 total_unit = rs.getInt("total_unit");
             }
-             conn.close();
-        }
-        catch (SQLException e) {
+             
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             return null;
         }
         product pro = new product(barcode_id, product_name, product_desc, mrp, discount, total_unit);
         return pro;
     }
-    public static product selectAllProducts(){
+
+    public static ArrayList<product> selectAllProducts(){
+        ArrayList<product> pro = new ArrayList<>();
         String sql = "SELECT * FROM product";
         String product_name="";
         String barcode_id="";
@@ -106,6 +106,8 @@ public class ProductDao {
                 mrp = rs.getInt("mrp");
                 discount = rs.getInt("discount");
                 total_unit = rs.getInt("total_unit");
+                product prod = new product(barcode_id, product_name, product_desc, mrp, discount, total_unit);
+                pro.add(prod);
             }
             conn.close();
              
@@ -114,7 +116,7 @@ public class ProductDao {
             System.out.println(e.getMessage());
             return null;
         }
-        product pro = new product(barcode_id, product_name, product_desc, mrp, discount, total_unit);
+        
         return pro;
     }
 	}

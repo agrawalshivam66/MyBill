@@ -195,6 +195,7 @@ public class addProduct extends javax.swing.JFrame {
 
     private void addProduct_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProduct_buttonActionPerformed
         // TODO add your handling code here:
+        try{
         String barcode_id=barcode_textField.getText().trim();
 	String productName=productName_textField.getText().trim();
 	String productDesc=productDesc_textField.getText().trim();
@@ -210,6 +211,11 @@ public class addProduct extends javax.swing.JFrame {
 			}else{
 				JOptionPane.showMessageDialog(addProduct.this,"Sorry, unable to save!");
 			}
+        }
+         catch(Exception e){
+            JOptionPane.showMessageDialog(addProduct.this,"Sorry try again");
+            clearText();
+        }
     }//GEN-LAST:event_addProduct_buttonActionPerformed
 
     private void clearText(){
@@ -219,6 +225,7 @@ public class addProduct extends javax.swing.JFrame {
 	mrp_textField.setText("");
 	disount_textField.setText("0");
         totalUnits_textField.setText("1");
+        barcode_textField.requestFocusInWindow();
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

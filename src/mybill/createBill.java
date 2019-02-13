@@ -204,7 +204,7 @@ public class createBill extends javax.swing.JFrame {
     private void barcode_textfieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barcode_textfieldKeyPressed
         // TODO add your handling code here:
          if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            String barcode = barcode_textfield.getText();
+            String barcode = barcode_textfield.getText().trim();
             product pro = ProductDao.selectAll(barcode);
             if (pro==null){
                 JOptionPane.showMessageDialog(createBill.this,"Sorry product not found");

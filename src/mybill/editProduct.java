@@ -5,7 +5,9 @@
  */
 package mybill;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -42,7 +44,7 @@ public class editProduct extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         disount_textField = new javax.swing.JTextField();
         totalUnits_textField = new javax.swing.JTextField();
-        addProduct_button = new javax.swing.JButton();
+        editProduct_button = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
@@ -62,6 +64,11 @@ public class editProduct extends javax.swing.JFrame {
         barcode_textField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 barcode_textFieldActionPerformed(evt);
+            }
+        });
+        barcode_textField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                barcode_textFieldKeyPressed(evt);
             }
         });
 
@@ -84,10 +91,10 @@ public class editProduct extends javax.swing.JFrame {
 
         totalUnits_textField.setText("1");
 
-        addProduct_button.setText("Add product");
-        addProduct_button.addActionListener(new java.awt.event.ActionListener() {
+        editProduct_button.setText("Edit Product");
+        editProduct_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addProduct_buttonActionPerformed(evt);
+                editProduct_buttonActionPerformed(evt);
             }
         });
 
@@ -112,11 +119,8 @@ public class editProduct extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(140, 140, 140)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(141, 141, 141)
-                        .addComponent(addProduct_button)
+                        .addComponent(editProduct_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
@@ -138,7 +142,10 @@ public class editProduct extends javax.swing.JFrame {
                                     .addComponent(productDesc_textField)
                                     .addComponent(mrp_textField)
                                     .addComponent(disount_textField)
-                                    .addComponent(totalUnits_textField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))))))
+                                    .addComponent(totalUnits_textField, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(177, 177, 177)
+                        .addComponent(jLabel1)))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -171,7 +178,7 @@ public class editProduct extends javax.swing.JFrame {
                     .addComponent(totalUnits_textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addProduct_button)
+                    .addComponent(editProduct_button)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
@@ -193,24 +200,32 @@ public class editProduct extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_disount_textFieldActionPerformed
 
-    private void addProduct_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProduct_buttonActionPerformed
+    private void editProduct_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProduct_buttonActionPerformed
         // TODO add your handling code here:
+        try{
         String barcode_id=barcode_textField.getText().trim();
 	String productName=productName_textField.getText().trim();
 	String productDesc=productDesc_textField.getText().trim();
 	int mrp=Integer.parseInt(mrp_textField.getText().trim());
 	int discount=Integer.parseInt(disount_textField.getText().trim());
 	int total_quantity=Integer.parseInt(totalUnits_textField.getText().trim());
+        
 			
-	int i=ProductDao.save(barcode_id, productName, productDesc, mrp, discount, total_quantity);
+	int i=ProductDao.update(barcode_id, productName, productDesc, mrp, discount, total_quantity);
 			if(i>0){
-				JOptionPane.showMessageDialog(editProduct.this,"Product added successfully!");
+				JOptionPane.showMessageDialog(editProduct.this,"Product edited successfully!");
 				clearText();
 				
 			}else{
 				JOptionPane.showMessageDialog(editProduct.this,"Sorry, unable to save!");
 			}
-    }//GEN-LAST:event_addProduct_buttonActionPerformed
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(editProduct.this,"Sorry Product not fount");
+            clearText();
+        }
+                       
+    }//GEN-LAST:event_editProduct_buttonActionPerformed
 
     private void clearText(){
         barcode_textField.setText("");
@@ -219,6 +234,7 @@ public class editProduct extends javax.swing.JFrame {
 	mrp_textField.setText("");
 	disount_textField.setText("0");
         totalUnits_textField.setText("1");
+        barcode_textField.requestFocusInWindow();
     }
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -231,6 +247,23 @@ public class editProduct extends javax.swing.JFrame {
         frontPage.main(new String[]{});
 	this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void barcode_textFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barcode_textFieldKeyPressed
+        // TODO add your handling code here:
+          if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String barcode = barcode_textField.getText().trim();
+            product pro = ProductDao.selectAll(barcode);
+            if (pro==null){
+                JOptionPane.showMessageDialog(editProduct.this,"Sorry product not found");
+            }
+            productName_textField.setText(pro.getProduct_name());
+            productDesc_textField.setText(pro.getProduct_desc());
+            mrp_textField.setText(String.valueOf(pro.getMrp()));
+            totalUnits_textField.setText(String.valueOf(pro.getTotal_unit()));
+            disount_textField.setText(String.valueOf(pro.getDiscount()));
+           
+        }
+    }//GEN-LAST:event_barcode_textFieldKeyPressed
 
     /**
      * @param args the command line arguments
@@ -269,9 +302,9 @@ public class editProduct extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addProduct_button;
     private javax.swing.JTextField barcode_textField;
     private javax.swing.JTextField disount_textField;
+    private javax.swing.JButton editProduct_button;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
