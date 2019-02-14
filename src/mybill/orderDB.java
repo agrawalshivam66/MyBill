@@ -23,12 +23,5 @@ public class orderDB{
         
         return conn;
     }
-    
-	public static void main(String[] args) {
-       getConnection();
-       int i = orderDao.save("12334", "abbc", "laptop", "lenovo", 100000, 10, 1);
-       System.out.print(i);
-	}
-    
 }
 

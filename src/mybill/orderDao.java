@@ -26,11 +26,8 @@ public class orderDao {
 	    return formattedTime;
 	}
 
-	public static int save(String order_id, String barcode_id, String product_name,String product_desc, int mrp, int discount,int quantity){
+	public static int save(String order_id, String barcode_id, String product_name,String product_desc, String order_date, String order_time, int mrp, int discount,int quantity){
 		int status=0;
-		Date date = new Date();
-		String order_date = getDate(date);
-		String order_time = getTime(date);
 		try{
 			Connection con=orderDB.getConnection();
 			PreparedStatement ps=con.prepareStatement("insert into orderbill values(?,?,?,?,?,?,?,?,?)");

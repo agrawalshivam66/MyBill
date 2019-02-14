@@ -53,7 +53,7 @@ public class viewProducts extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         AllProductsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

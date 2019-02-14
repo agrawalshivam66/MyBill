@@ -110,27 +110,27 @@ public class frontPage extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         addProduct.main(new String[]{});
-        this.dispose();
+        //this.dispose();
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         createBill.main(new String[]{});
-        this.dispose();
+        //this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void ViewProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewProductsActionPerformed
         // TODO add your handling code here:
         viewProducts.main(new String[]{});
-        this.dispose();
+        //this.dispose();
         
     }//GEN-LAST:event_ViewProductsActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         editProduct.main(new String[]{});
-        this.dispose();
+        //this.dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
