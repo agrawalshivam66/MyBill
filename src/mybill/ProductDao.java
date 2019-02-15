@@ -56,6 +56,19 @@ public class ProductDao {
 		return status;
 	}
         
+        public static int updateQuantity(String barcode_id, int quantity){
+		int status=0;
+		try{
+			Connection con=productDB.getConnection();
+			PreparedStatement ps=con.prepareStatement("update product set total_unit= total_unit-? where barcode_id = ?");
+			ps.setInt(1, quantity);
+			ps.setString(2,barcode_id);
+			status=ps.executeUpdate();
+			con.close();
+		}catch(Exception e){System.out.println(e);}
+		return status;
+	}
+        
        
        public static product selectAll(String barcode_id){
         String sql = "SELECT * FROM product where barcode_id='"+barcode_id+"';";

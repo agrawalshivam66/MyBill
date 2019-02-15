@@ -9,6 +9,18 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Date;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import javax.print.Doc;
+import javax.print.DocFlavor;
+import javax.print.DocPrintJob;
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.PrintRequestAttributeSet;
+import javax.print.event.PrintJobAdapter;
+import javax.print.event.PrintJobEvent;
 
 
 /**
@@ -17,7 +29,7 @@ import java.util.Date;
  */
 public class PrintBill {
     
-    public static void main(String[] args) {
+    public static void writeFile(){
         FileWriter fr = null;
         BufferedWriter br = null;
     try{
@@ -61,6 +73,14 @@ public class PrintBill {
             System.out.println(e);
         }
     }
+        
+    }
+    
+    public static void printFile(File file){
+       
+    }
+    
+    public static void main(String[] args) {
         
     
     }

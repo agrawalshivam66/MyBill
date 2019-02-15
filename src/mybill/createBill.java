@@ -316,6 +316,8 @@ public class createBill extends javax.swing.JFrame {
         String current_date = orderDao.getDate(date);
         String current_time = orderDao.getTime(date);
         float total_price = 0;
+        int statusOrder = 0;
+        int statusUpdate = 0;
         for(int i = 0; i < productTable.getRowCount();i++){
             DefaultTableModel model = (DefaultTableModel)productTable.getModel();
             String Barcode_id = model.getValueAt(i, 0).toString();
@@ -324,8 +326,19 @@ public class createBill extends javax.swing.JFrame {
             int mrp = Integer.parseInt( model.getValueAt(i, 3).toString());
             int discount = Integer.parseInt( model.getValueAt(i, 4).toString());
             int quantity = Integer.parseInt( model.getValueAt(i, 5).toString());
-            orderDao.save(order_id, Barcode_id, productName, productDesc, current_date, current_time, mrp, discount, quantity);
-        }
+            Float price = Float.parseFloat(model.getValueAt(i, 6).toString());
+            statusOrder = orderDao.save(order_id, Barcode_id, productName, current_date, current_time, mrp, discount, quantity, price);
+            statusUpdate = ProductDao.updateQuantity(Barcode_id, quantity);
+            if(statusOrder < 0 && statusUpdate < 0){
+                    JOptionPane.showMessageDialog(createBill.this,"Sorry, unable to save!");
+                    this.dispose();
+                    break;
+		}
+            }
+         if(statusOrder > 0 && statusUpdate > 0){
+                    JOptionPane.showMessageDialog(createBill.this,"Order successfully!");
+                    this.dispose();
+		}
     
     }//GEN-LAST:event_PrintButtonActionPerformed
 

@@ -13,7 +13,6 @@ public class orderDao {
 	    String date_format = "dd/MM/yyyy";
 	    DateFormat dateFormat = new SimpleDateFormat(date_format);
 	    String formattedDate= dateFormat.format(date);
-	    System.out.println("Current day  " + formattedDate);
 	    return formattedDate;
 	}
 	
@@ -22,11 +21,10 @@ public class orderDao {
 	    String time_format = "hh:mm:ss a";
 	    DateFormat timeFormat = new SimpleDateFormat(time_format);
 	    String formattedTime= timeFormat.format(date);
-	    System.out.println("Current time  " + formattedTime);
 	    return formattedTime;
 	}
 
-	public static int save(String order_id, String barcode_id, String product_name,String product_desc, String order_date, String order_time, int mrp, int discount,int quantity){
+	public static int save(String order_id, String barcode_id, String product_name, String order_date, String order_time, int mrp, int discount,int quantity, float price){
 		int status=0;
 		try{
 			Connection con=orderDB.getConnection();
@@ -34,12 +32,12 @@ public class orderDao {
 			ps.setString(1,order_id);
 			ps.setString(2,barcode_id);
 			ps.setString(3,product_name);
-			ps.setString(4,product_desc);
-			ps.setString(5,order_date);
-			ps.setString(6,order_time);
-			ps.setInt(7,mrp);
-			ps.setInt(8,discount);
-			ps.setInt(9, quantity);
+			ps.setString(4,order_date);
+			ps.setString(5,order_time);
+			ps.setInt(6,mrp);
+			ps.setInt(7,discount);
+			ps.setInt(8, quantity);
+                        ps.setFloat(9,price);
 			status=ps.executeUpdate();
 			con.close();
 		}catch(Exception e){System.out.println(e);}
