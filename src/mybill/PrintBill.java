@@ -9,18 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Date;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import javax.print.Doc;
-import javax.print.DocFlavor;
-import javax.print.DocPrintJob;
-import javax.print.PrintService;
-import javax.print.PrintServiceLookup;
-import javax.print.SimpleDoc;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.PrintRequestAttributeSet;
-import javax.print.event.PrintJobAdapter;
-import javax.print.event.PrintJobEvent;
+
 
 
 /**
@@ -29,7 +18,7 @@ import javax.print.event.PrintJobEvent;
  */
 public class PrintBill {
     
-    public static void writeFile(){
+    public static void writeFile(String orderID){
         FileWriter fr = null;
         BufferedWriter br = null;
     try{
