@@ -32,6 +32,7 @@ public class createBill extends javax.swing.JFrame {
     public createBill()  {
       
         initComponents();
+        setExtendedState(this.MAXIMIZED_BOTH); 
         setfocus();
     }    
     
@@ -66,12 +67,12 @@ public class createBill extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         productTable = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        RemoveRowButton = new javax.swing.JButton();
         label = new javax.swing.JLabel();
         barcode_textfield = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        NewBillButton = new javax.swing.JButton();
+        CancelButton = new javax.swing.JButton();
         PrintButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -91,7 +92,7 @@ public class createBill extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Float.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true, true
+                false, false, false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -111,11 +112,14 @@ public class createBill extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(productTable);
+        if (productTable.getColumnModel().getColumnCount() > 0) {
+            productTable.getColumnModel().getColumn(5).setCellRenderer(null);
+        }
 
-        jButton1.setText("Remove row");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        RemoveRowButton.setText("Remove row");
+        RemoveRowButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                RemoveRowButtonActionPerformed(evt);
             }
         });
 
@@ -134,17 +138,17 @@ public class createBill extends javax.swing.JFrame {
 
         jLabel1.setText("Barcode ID");
 
-        jButton2.setText("New Bill");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        NewBillButton.setText("New Bill");
+        NewBillButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                NewBillButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Cancel");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        CancelButton.setText("Cancel");
+        CancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                CancelButtonActionPerformed(evt);
             }
         });
 
@@ -173,7 +177,7 @@ public class createBill extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(label)
-                        .addGap(0, 1775, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -181,15 +185,12 @@ public class createBill extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(PrintButton, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(RemoveRowButton, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(NewBillButton, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(512, 512, 512))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1605, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addGap(16, 16, 16)
@@ -197,22 +198,25 @@ public class createBill extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(652, 652, 652))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1)
+                .addGap(413, 413, 413))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(barcode_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(PrintButton)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(27, 27, 27)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RemoveRowButton)
+                    .addComponent(NewBillButton)
+                    .addComponent(CancelButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,7 +228,7 @@ public class createBill extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void RemoveRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveRowButtonActionPerformed
         // TODO add your handling code here:
         try{
         int row = productTable.getSelectedRow();
@@ -235,7 +239,7 @@ public class createBill extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(createBill.this,"Sorry no row selected");
          setfocus();    
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_RemoveRowButtonActionPerformed
 
     private void barcode_textfieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_barcode_textfieldActionPerformed
         // TODO add your handling code here:
@@ -297,16 +301,16 @@ public class createBill extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_productTableKeyPressed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void NewBillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewBillButtonActionPerformed
         // TODO add your handling code here:
         createBill.main(new String[]{});
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_NewBillButtonActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
         // TODO add your handling code here:
         frontPage.main(new String[]{});
         this.dispose();
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void PrintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintButtonActionPerformed
         // TODO add your handling code here:
@@ -318,6 +322,7 @@ public class createBill extends javax.swing.JFrame {
         float total_price = 0;
         int statusOrder = 0;
         int statusUpdate = 0;
+        ArrayList<Order> ordList = new ArrayList<>();
         for(int i = 0; i < productTable.getRowCount();i++){
             DefaultTableModel model = (DefaultTableModel)productTable.getModel();
             String Barcode_id = model.getValueAt(i, 0).toString();
@@ -327,6 +332,7 @@ public class createBill extends javax.swing.JFrame {
             int discount = Integer.parseInt( model.getValueAt(i, 4).toString());
             int quantity = Integer.parseInt( model.getValueAt(i, 5).toString());
             Float price = Float.parseFloat(model.getValueAt(i, 6).toString());
+            Order ord = new Order(Barcode_id, productName, current_time, current_date, mrp, discount, quantity, price);
             statusOrder = orderDao.save(order_id, Barcode_id, productName, current_date, current_time, mrp, discount, quantity, price);
             statusUpdate = ProductDao.updateQuantity(Barcode_id, quantity);
             if(statusOrder < 0 && statusUpdate < 0){
@@ -334,10 +340,15 @@ public class createBill extends javax.swing.JFrame {
                     this.dispose();
                     break;
 		}
+            else{
+                ordList.add(ord);
+            }
             }
          if(statusOrder > 0 && statusUpdate > 0){
+                    PrintBill.writeFile(ordList, order_id);
                     JOptionPane.showMessageDialog(createBill.this,"Order successfully!");
                     this.dispose();
+                    createBill.main(new String[]{});
 		}
     
     }//GEN-LAST:event_PrintButtonActionPerformed
@@ -382,12 +393,12 @@ public class createBill extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CancelButton;
+    private javax.swing.JButton NewBillButton;
     private javax.swing.JLabel PriceLabel;
     private javax.swing.JButton PrintButton;
+    private javax.swing.JButton RemoveRowButton;
     private javax.swing.JTextField barcode_textfield;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

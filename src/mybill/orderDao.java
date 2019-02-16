@@ -38,8 +38,8 @@ public class orderDao {
 			ps.setString(4,order_date);
 			ps.setString(5,order_time);
 			ps.setInt(6,mrp);
-			ps.setInt(7,discount);
-			ps.setInt(8, quantity);
+			ps.setInt(7,quantity);
+			ps.setInt(8, discount);
                         ps.setFloat(9,price);
 			status=ps.executeUpdate();
 			con.close();

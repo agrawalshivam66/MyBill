@@ -25,11 +25,13 @@ public class viewOrder extends javax.swing.JFrame {
     
     private void DisplayOrder(){
          String OrderId = OrderID_textfield.getText();
+         
          ArrayList<Order> ordList = orderDao.FindOrder(OrderId);
             if (ordList==null){
                 JOptionPane.showMessageDialog(viewOrder.this,"Sorry no product not found");
             }
             DefaultTableModel model = (DefaultTableModel) OrderTable.getModel();
+            model.setRowCount(0);
             for (Order ord : ordList){ 
                 String barcode_id = ord.barcode_id;
                 String product_name = ord.product_name;

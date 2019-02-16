@@ -2,11 +2,14 @@
 jaganath road, Saintala, Bolangir
 ph-256266, mob-8295030862
 
-Date- 14/02/2019
-Order ID-
+Date- 16/02/2019
+Order ID-1550302600732
 
-name		quantity	price
+Product Name      Quantity	Price
+dhbsdjhbsjhbj	1	10000.0
+kjknkj	1	10000.0
+jkkn	1	100.0
 
-Total price- Rs. 
+Total price- Rs.20100.0
 
 	Thank You, Visit Again :) 
