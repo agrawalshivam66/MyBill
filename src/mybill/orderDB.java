@@ -9,7 +9,7 @@ public class orderDB{
         Connection conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:C:/sqlite/order.db";
+            String url = "jdbc:sqlite:order.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             

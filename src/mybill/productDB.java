@@ -9,7 +9,7 @@ public class productDB{
         Connection conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:C:/sqlite/product.db";
+            String url = "jdbc:sqlite:product.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
             
