@@ -13,8 +13,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
 import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellEditor;
 import javax.swing.tree.DefaultTreeCellEditor;
@@ -112,6 +114,12 @@ public class createBill extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(productTable);
+        if (productTable.getColumnModel().getColumnCount() > 0) {
+            productTable.getColumnModel().getColumn(3).setCellRenderer(cellCenter() );
+            productTable.getColumnModel().getColumn(4).setCellRenderer(cellCenter() );
+            productTable.getColumnModel().getColumn(5).setCellRenderer(cellCenter() );
+            productTable.getColumnModel().getColumn(6).setCellRenderer(cellCenter() );
+        }
 
         RemoveRowButton.setText("Remove row");
         RemoveRowButton.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +233,12 @@ public class createBill extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+        private DefaultTableCellRenderer cellCenter(){
+          DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+          centerRenderer.setHorizontalAlignment( SwingConstants.CENTER );  
+          return centerRenderer;
+      }
+    
     private void RemoveRowButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveRowButtonActionPerformed
         // TODO add your handling code here:
         try{
@@ -305,7 +319,6 @@ public class createBill extends javax.swing.JFrame {
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButtonActionPerformed
         // TODO add your handling code here:
-        frontPage.main(new String[]{});
         this.dispose();
     }//GEN-LAST:event_CancelButtonActionPerformed
 
