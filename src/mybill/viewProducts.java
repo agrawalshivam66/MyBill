@@ -88,6 +88,7 @@ public class viewProducts extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        AllProductsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(AllProductsTable);
         if (AllProductsTable.getColumnModel().getColumnCount() > 0) {
             AllProductsTable.getColumnModel().getColumn(3).setCellRenderer(cellCenter());

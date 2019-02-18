@@ -30,8 +30,7 @@ public class HelloWorldPrinter implements Printable{
         if (page > 0) { /* We have only one page, and 'page' is zero-based */
             return NO_SUCH_PAGE;
         }
-        System.out.print(pf.getImageableX());
-        System.out.println( pf.getImageableY());
+        
         /* User (0,0) is typically outside the imageable area, so we must
          * translate by the X and Y values in the PageFormat to avoid clipping
          */
@@ -40,7 +39,7 @@ public class HelloWorldPrinter implements Printable{
  
         g2d.setFont(new Font("Arial",Font.BOLD,15));
         
-        g.drawString ("VITOUS MALL", 100, 10);
+        g.drawString ("VITOUS MALL", 100, 15);
         g2d.setFont(new Font("Monospaced",Font.BOLD,10));
  
         g.drawString("Bahavddihpur, Patel Nagar, Akbarpur", 40, 30);
@@ -55,7 +54,7 @@ public class HelloWorldPrinter implements Printable{
         
         g.drawString("Payment Method: "+PaymentMethod, 10, 105);
        
-        g.drawString(String.format("%20s %3s %7s %4s %10s","Product Name","Qty","Rate","Dis%" ,"Amount"), 1, 120);
+        g.drawString(String.format("%20s %3s %7s %4s %9s","Product Name","Qty","Rate","Dis%" ,"Amount"), 1, 120);
          g2d.setFont(new Font("Monospaced",Font.PLAIN,10));
         int y = 0;
         for (Order ord : ordList){ 
@@ -66,7 +65,7 @@ public class HelloWorldPrinter implements Printable{
                 int mrp = ord.mrp;
                 int discount = ord.discount;
                 total_price += price;
-                g.drawString(String.format("%20s %3s %7s %4s %10s", product_name,String.valueOf(quantity),String.valueOf(mrp),String.valueOf(discount),String.valueOf(price)),1,120+y);
+                g.drawString(String.format("%20s %3s %7s %4s %9s", product_name,String.valueOf(quantity),String.valueOf(mrp),String.valueOf(discount),String.valueOf(price)),1,120+y);
                 
         }
         g2d.setFont(new Font("Monospaced",Font.BOLD,10));

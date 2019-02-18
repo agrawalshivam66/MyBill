@@ -112,6 +112,7 @@ public class createBill extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        productTable.getTableHeader().setReorderingAllowed(false);
         productTable.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 productTableKeyPressed(evt);
@@ -388,7 +389,7 @@ public class createBill extends javax.swing.JFrame {
             }
          if(statusOrder > 0 && statusUpdate > 0){
                     PrintBill.writeFile(ordList, order_id, paymentMethod);
-                    
+           
                     JOptionPane.showMessageDialog(createBill.this,"Order successfully!");
                     this.dispose();
                     createBill.main(new String[]{});

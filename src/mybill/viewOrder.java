@@ -103,6 +103,7 @@ public class viewOrder extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        OrderTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(OrderTable);
         if (OrderTable.getColumnModel().getColumnCount() > 0) {
             OrderTable.getColumnModel().getColumn(4).setCellRenderer(cellCenter());
