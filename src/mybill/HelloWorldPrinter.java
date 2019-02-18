@@ -6,8 +6,6 @@
 package mybill;
  
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
 import java.awt.print.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +23,10 @@ public class HelloWorldPrinter implements Printable{
     }
  
     public int print(Graphics g, PageFormat pf, int page) throws
-                                                        PrinterException {
+                                                   PrinterException {
+       Paper paper = new Paper();
+       paper.setSize(5.8 , 8.3 );
+        pf.setPaper(paper);
  
         if (page > 0) { /* We have only one page, and 'page' is zero-based */
             return NO_SUCH_PAGE;
@@ -39,38 +40,44 @@ public class HelloWorldPrinter implements Printable{
         
         g2d.setFont(new Font("Arial",Font.BOLD,15));
         
-        g.drawString ("Vitous Mall", 50, 10);
+        g.drawString ("VITOUS MALL", 100, 10);
         g2d.setFont(new Font("Monospaced",Font.BOLD,10));
  
-        g.drawString("Bahavddihpur, Patel Nagar, Akbarpur", 10, 30);
+        g.drawString("Bahavddihpur, Patel Nagar, Akbarpur", 40, 30);
        
-        g.drawString("Uttar Pradesh, pin-224122, mob-9616454925", 10, 45);
+        g.drawString("Uttar Pradesh, Pin: 224122, Mobile: 9616454925", 10, 45);
         
-        g.drawString("Date- "+orderDao.getDate(new Date()), 50, 60);
+        g.drawString("----------------------------------------------",10,60);
         
-        g.drawString("Order ID- "+order_id, 50, 75);
+        g.drawString("Date: "+orderDao.getDate(new Date()), 10, 75);
         
-        g.drawString("Payment method- "+PaymentMethod, 50, 90);
-        g2d.setFont(new Font("Monospaced",Font.PLAIN,10));
-        g.drawString(String.format("%20s %10s %10s \r\n","Product Name","Quantity","Price"), 10, 105);
+        g.drawString("Order ID: "+order_id, 10, 90);
+        
+        g.drawString("Payment Method: "+PaymentMethod, 10, 105);
+       
+        g.drawString(String.format("%20s %3s %7s %4s %10s","Product Name","Qty","Rate","Dis%" ,"Amount"), 1, 120);
+         g2d.setFont(new Font("Monospaced",Font.PLAIN,10));
         int y = 0;
         for (Order ord : ordList){ 
                 y+=15;
                 String product_name = ord.product_name;
                 int quantity = ord.quantity;
                 float price = ord.price;
+                int mrp = ord.mrp;
+                int discount = ord.discount;
                 total_price += price;
-                g.drawString(String.format("%20s %10s %10s \r\n", product_name,String.valueOf(quantity),String.valueOf(price)),10,105+y);
+                g.drawString(String.format("%20s %3s %7s %4s %10s", product_name,String.valueOf(quantity),String.valueOf(mrp),String.valueOf(discount),String.valueOf(price)),1,120+y);
                 
         }
         g2d.setFont(new Font("Monospaced",Font.BOLD,10));
-        g.drawString("Total price-Rs."+String.valueOf(total_price), 50, 120+y);
+        g.drawString("Total Price: Rs."+String.valueOf(total_price), 10, 135+y);
         g2d.setFont(new Font("Monospaced",Font.PLAIN,10));
-        g.drawString("	Thank You, Visit Again :) ", 10, 135+y);
+        g.drawString("	Thank You, Visit Again :) ", 80, 150+y);
  
         /* tell the caller that this page is part of the printed document */
         return PAGE_EXISTS;
     }
+    
  
     public void startPrinting(){
          PrinterJob job = PrinterJob.getPrinterJob();

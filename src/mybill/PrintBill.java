@@ -22,7 +22,6 @@ import javax.print.SimpleDoc;
 import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Copies;
-import javax.print.attribute.standard.MediaSize;
 import javax.print.attribute.standard.MediaSizeName;
 
 
@@ -81,44 +80,14 @@ public class PrintBill {
         try{
         br.close();
         fr.close();
-            HelloWorldPrinter gwp = new HelloWorldPrinter();
-           gwp.initOrder( ordList, order_id, PaymentMethod);
-            gwp.startPrinting();
+            HelloWorldPrinter hwp = new HelloWorldPrinter();
+           hwp.initOrder( ordList, order_id, PaymentMethod);
+           hwp.startPrinting();
     }
         catch(Exception e){
             System.out.println(e);
         }
     }
-        
-    }
-    
-    public static void printFile(File file){
-        
-           FileInputStream psStream=null;
-            try {
-               psStream = new FileInputStream(file);
-            } catch (FileNotFoundException ffne) {
-            }
-            if (psStream == null) {
-                return;
-            }
-
-            DocFlavor psInFormat = DocFlavor.INPUT_STREAM.AUTOSENSE;
-            Doc SD = new SimpleDoc(psStream, psInFormat, null);
-            
-            PrintRequestAttributeSet aset = 
-                    new HashPrintRequestAttributeSet();
-            aset.add(new Copies(1));
-            aset.add(MediaSizeName.ISO_A5);
-            PrintService services = 
-              PrintServiceLookup.lookupDefaultPrintService(); 
-            
-                DocPrintJob job = services.createPrintJob();
-               try {
-                    job.print(SD, aset);
-               } 
-               catch (PrintException pe) {
-               }
         
     }
 }
