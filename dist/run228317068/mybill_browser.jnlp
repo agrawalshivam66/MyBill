@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="mybill.jnlp">
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="mybill_browser.jnlp">
   <information>
     <title>mybill</title>
     <vendor>Shivam-PC</vendor>
@@ -12,9 +12,9 @@
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
     <jar href="lib/sqlite-jdbc-3.23.1.jar" size="6733696" download="eager" />
-    <jar href="mybill.jar" size="64216" download="eager" />
+    <jar href="mybill.jar" size="64105" download="eager" />
   </resources>
-  <application-desc main-class="mybill.frontPage"  name="mybill" >
-  </application-desc>
+  <applet-desc  width="800" height="600" main-class="mybill.frontPage"  name="mybill" >
+  </applet-desc>
   <update check="always"/>
 </jnlp>

@@ -80,7 +80,7 @@ public class PrintBill {
         try{
         br.close();
         fr.close();
-            HelloWorldPrinter hwp = new HelloWorldPrinter();
+           HelloWorldPrinter hwp = new HelloWorldPrinter();
            hwp.initOrder( ordList, order_id, PaymentMethod);
            hwp.startPrinting();
     }

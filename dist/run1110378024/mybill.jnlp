@@ -12,7 +12,7 @@
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
     <jar href="lib/sqlite-jdbc-3.23.1.jar" size="6733696" download="eager" />
-    <jar href="mybill.jar" size="64216" download="eager" />
+    <jar href="mybill.jar" size="64107" download="eager" />
   </resources>
   <application-desc main-class="mybill.frontPage"  name="mybill" >
   </application-desc>

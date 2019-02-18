@@ -9,6 +9,9 @@ import java.awt.*;
 import java.awt.print.*;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.print.attribute.Size2DSyntax;
+import javax.print.attribute.standard.MediaSize;
+import javax.print.attribute.standard.MediaSizeName;
  
 public class HelloWorldPrinter implements Printable{
     ArrayList<Order> ordList=null;
@@ -22,22 +25,19 @@ public class HelloWorldPrinter implements Printable{
         this.PaymentMethod = PaymentMethod;
     }
  
-    public int print(Graphics g, PageFormat pf, int page) throws
-                                                   PrinterException {
-       Paper paper = new Paper();
-       paper.setSize(5.8 , 8.3 );
-        pf.setPaper(paper);
- 
+    public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
+        
         if (page > 0) { /* We have only one page, and 'page' is zero-based */
             return NO_SUCH_PAGE;
         }
- 
+        System.out.print(pf.getImageableX());
+        System.out.println( pf.getImageableY());
         /* User (0,0) is typically outside the imageable area, so we must
          * translate by the X and Y values in the PageFormat to avoid clipping
          */
         Graphics2D g2d = (Graphics2D)g;
         g2d.translate(pf.getImageableX(), pf.getImageableY());
-        
+ 
         g2d.setFont(new Font("Arial",Font.BOLD,15));
         
         g.drawString ("VITOUS MALL", 100, 10);
@@ -79,14 +79,28 @@ public class HelloWorldPrinter implements Printable{
     }
     
  
-    public void startPrinting(){
-         PrinterJob job = PrinterJob.getPrinterJob();
-         job.setPrintable(this);
+    public int startPrinting(){
+        PrinterJob job = PrinterJob.getPrinterJob();
+        PageFormat pf = job.defaultPage();
+         
+        MediaSize isoA5Size = MediaSize.getMediaSizeForName(MediaSizeName.ISO_A5);
+        float[] size = isoA5Size.getSize(Size2DSyntax.INCH);
+        Paper paper = new Paper();
+        paper.setSize(size[0] * 72.0, size[1] * 72.0);
+    
+        paper.setImageableArea(60.0, 30.0 , size[0] * 72.0, size[1] * 72.0);
+        pf.setPaper(paper);
+        
+        Book book = new Book();//java.awt.print.Book
+        book.append(this, pf);
+        job.setPageable(book);
              try {
                   job.print();
              } catch (PrinterException ex) {
               /* The job did not successfully complete */
+                 return -1;
              }
+             return 1;
          }
     
 }
