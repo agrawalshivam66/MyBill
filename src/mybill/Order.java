@@ -18,8 +18,9 @@ public class Order {
         int discount = 0;
         int quantity = 0;
         float price = 0;
+        String payment_method="Cash"; 
 
-    public Order(String barcode_id, String product_name,  String time, String date, int mrp, int discount, int quantity, float price){
+    public Order(String barcode_id, String product_name,  String time, String date, int mrp, int discount, int quantity, float price, String payment_method){
         this.product_name = product_name;
         this.barcode_id = barcode_id;
         this.time = time;
@@ -28,5 +29,6 @@ public class Order {
         this.discount = discount;
         this.quantity = quantity;
         this.price = price;
+        this.payment_method = payment_method;
 }
 }

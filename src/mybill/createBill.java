@@ -12,6 +12,7 @@ import java.rmi.server.UID;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.event.CellEditorListener;
@@ -34,7 +35,11 @@ public class createBill extends javax.swing.JFrame {
     public createBill()  {
       
         initComponents();
-        setExtendedState(this.MAXIMIZED_BOTH); 
+        setExtendedState(this.MAXIMIZED_BOTH);
+        ButtonGroup group = new ButtonGroup();
+        group.add(cashButton);
+        group.add(cardButton);
+        cashButton.setSelected(true);
         setfocus();
     }    
     
@@ -79,6 +84,8 @@ public class createBill extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         PriceLabel = new javax.swing.JLabel();
+        cashButton = new javax.swing.JRadioButton();
+        cardButton = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -174,6 +181,15 @@ public class createBill extends javax.swing.JFrame {
         PriceLabel.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         PriceLabel.setText("0.0");
 
+        cashButton.setText("Cash");
+        cashButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cashButtonActionPerformed(evt);
+            }
+        });
+
+        cardButton.setText("Card");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,9 +201,6 @@ public class createBill extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PriceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(652, 652, 652))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
-                .addGap(413, 413, 413))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -202,16 +215,27 @@ public class createBill extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(512, 512, 512))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(508, 508, 508)
-                .addComponent(label)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(508, 508, 508)
+                        .addComponent(label)
+                        .addGap(367, 367, 367)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cashButton)
+                            .addComponent(cardButton))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(413, 413, 413))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(label)
+                .addComponent(cashButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(label)
+                    .addComponent(cardButton))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(barcode_textfield, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,7 +245,7 @@ public class createBill extends javax.swing.JFrame {
                     .addComponent(NewBillButton)
                     .addComponent(CancelButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -324,6 +348,14 @@ public class createBill extends javax.swing.JFrame {
 
     private void PrintButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrintButtonActionPerformed
         // TODO add your handling code here:
+        String paymentMethod = "Cash";
+        if(cashButton.isSelected()){
+            paymentMethod = "Cash";
+        }
+        else if(cardButton.isSelected()){
+            paymentMethod = "Card";
+        }
+        
         Date date = new Date();
         long currentTimeId = System.currentTimeMillis();
         String order_id = String.valueOf(currentTimeId);
@@ -342,8 +374,8 @@ public class createBill extends javax.swing.JFrame {
             int discount = Integer.parseInt( model.getValueAt(i, 4).toString());
             int quantity = Integer.parseInt( model.getValueAt(i, 5).toString());
             Float price = Float.parseFloat(model.getValueAt(i, 6).toString());
-            Order ord = new Order(Barcode_id, productName, current_time, current_date, mrp, discount, quantity, price);
-            statusOrder = orderDao.save(order_id, Barcode_id, productName, current_date, current_time, mrp, discount, quantity, price);
+            Order ord = new Order(Barcode_id, productName, current_time, current_date, mrp, discount, quantity, price, paymentMethod);
+            statusOrder = orderDao.save(order_id, Barcode_id, productName, current_date, current_time, mrp, discount, quantity, price, paymentMethod);
             statusUpdate = ProductDao.updateQuantity(Barcode_id, quantity);
             if(statusOrder < 0 && statusUpdate < 0){
                     JOptionPane.showMessageDialog(createBill.this,"Sorry, unable to save!");
@@ -355,13 +387,18 @@ public class createBill extends javax.swing.JFrame {
             }
             }
          if(statusOrder > 0 && statusUpdate > 0){
-                    PrintBill.writeFile(ordList, order_id);
+                    PrintBill.writeFile(ordList, order_id, paymentMethod);
+                    
                     JOptionPane.showMessageDialog(createBill.this,"Order successfully!");
                     this.dispose();
                     createBill.main(new String[]{});
 		}
     
     }//GEN-LAST:event_PrintButtonActionPerformed
+
+    private void cashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cashButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,6 +446,8 @@ public class createBill extends javax.swing.JFrame {
     private javax.swing.JButton PrintButton;
     private javax.swing.JButton RemoveRowButton;
     private javax.swing.JTextField barcode_textfield;
+    private javax.swing.JRadioButton cardButton;
+    private javax.swing.JRadioButton cashButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

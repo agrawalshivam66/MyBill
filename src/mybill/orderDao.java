@@ -27,11 +27,11 @@ public class orderDao {
 	    return formattedTime;
 	}
 
-	public static int save(String order_id, String barcode_id, String product_name, String order_date, String order_time, int mrp, int discount,int quantity, float price){
+	public static int save(String order_id, String barcode_id, String product_name, String order_date, String order_time, int mrp, int discount,int quantity, float price, String payment_method){
 		int status=0;
 		try{
 			Connection con=orderDB.getConnection();
-			PreparedStatement ps=con.prepareStatement("insert into orderbill values(?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps=con.prepareStatement("insert into orderbill values(?,?,?,?,?,?,?,?,?,?)");
 			ps.setString(1,order_id);
 			ps.setString(2,barcode_id);
 			ps.setString(3,product_name);
@@ -41,6 +41,7 @@ public class orderDao {
 			ps.setInt(7,quantity);
 			ps.setInt(8, discount);
                         ps.setFloat(9,price);
+                        ps.setString(10, payment_method);
 			status=ps.executeUpdate();
 			con.close();
 		}catch(Exception e){System.out.println(e);}
@@ -51,6 +52,7 @@ public class orderDao {
         ArrayList<Order> ordList = new ArrayList<>();
         String sql = "SELECT * FROM orderbill where order_id='"+OrderId+"';";
         String product_name="";
+        String payment_method;
         String barcode_id="";
         String time = "";
         String date = "";
@@ -72,8 +74,9 @@ public class orderDao {
                 discount = rs.getInt("discount");
                 quantity = rs.getInt("quantity");
                 price = rs.getFloat("price");
+                payment_method = rs.getString("payment_method");
                 
-                Order odr = new Order(barcode_id, product_name, time, date, mrp, discount, quantity, price);
+                Order odr = new Order(barcode_id, product_name, time, date, mrp, discount, quantity, price, payment_method);
                 ordList.add(odr);
             }
             conn.close();

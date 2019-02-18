@@ -30,6 +30,7 @@ public class viewOrder extends javax.swing.JFrame {
     private void DisplayOrder(){
          String OrderId = OrderID_textfield.getText();
          float total_price = 0;
+         String payment_method = "Cash";
          ArrayList<Order> ordList = orderDao.FindOrder(OrderId);
             if (ordList==null){
                 JOptionPane.showMessageDialog(viewOrder.this,"Sorry no product not found");
@@ -45,11 +46,13 @@ public class viewOrder extends javax.swing.JFrame {
                 int discount = ord.discount;
                 int quantity = ord.quantity;
                 float price = ord.price;
+                payment_method = ord.payment_method;
                 total_price += price;
             Object[] item={barcode_id, product_name, time, date, mrp, discount, quantity, price};
             model.addRow(item);
             }
             Total_Price_TextField.setText(String.valueOf(total_price));
+            PaymentMethod_Label.setText(payment_method);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,6 +73,8 @@ public class viewOrder extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Total_Price_TextField = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        PaymentMethod_Label = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
@@ -142,6 +147,12 @@ public class viewOrder extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel3.setText("View Order Details");
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel4.setText("Payment Method-");
+
+        PaymentMethod_Label.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        PaymentMethod_Label.setText("Cash");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,7 +164,11 @@ public class viewOrder extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Total_Price_TextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(1143, 1143, 1143))
+                        .addGap(202, 202, 202)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PaymentMethod_Label)
+                        .addGap(853, 853, 853))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,7 +200,9 @@ public class viewOrder extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Total_Price_TextField))
+                    .addComponent(Total_Price_TextField)
+                    .addComponent(jLabel4)
+                    .addComponent(PaymentMethod_Label))
                 .addGap(72, 72, 72))
         );
 
@@ -261,12 +278,14 @@ public class viewOrder extends javax.swing.JFrame {
     private javax.swing.JButton BackButton;
     private javax.swing.JTextField OrderID_textfield;
     private javax.swing.JTable OrderTable;
+    private javax.swing.JLabel PaymentMethod_Label;
     private javax.swing.JButton SearchButton;
     private javax.swing.JLabel Total_Price_TextField;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

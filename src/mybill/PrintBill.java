@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
 import javax.print.PrintException;
@@ -22,6 +23,8 @@ import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.MediaSize;
+import javax.print.attribute.standard.MediaSizeName;
+
 
 
 
@@ -31,7 +34,7 @@ import javax.print.attribute.standard.MediaSize;
  */
 public class PrintBill {
     
-    public static void writeFile(ArrayList<Order> ordList, String order_id){
+    public static void writeFile(ArrayList<Order> ordList, String order_id, String PaymentMethod){
         FileWriter fr = null;
         BufferedWriter br = null;
         float total_price = 0;
@@ -41,16 +44,18 @@ public class PrintBill {
         fr = new FileWriter(file);
         br = new BufferedWriter(fr);
         
-        br.write ("	New Garments");
+        br.write (String.format("%20s \r\n","Vitous Mall"));
         br.newLine();
-        br.write("jaganath road, Saintala, Bolangir");
+        br.write("Bahavddihpur, Patel Nagar, Akbarpur");
         br.newLine();
-        br.write("ph-256266, mob-8295030862");
+        br.write("Uttar Pradesh, pin-224122, mob-9616454925");
         br.newLine();
         br.newLine();
-        br.write("Date- "+orderDao.getDate(new Date()));
+        br.write("      Date- "+orderDao.getDate(new Date()));
         br.newLine();
-        br.write("Order ID-"+order_id);
+        br.write("      Order ID- "+order_id);
+        br.newLine();
+        br.write("      Payment method- "+PaymentMethod);
         br.newLine();
         br.newLine();
         br.write(String.format("%20s %10s %10s \r\n","Product Name","Quantity","Price"));
@@ -76,7 +81,9 @@ public class PrintBill {
         try{
         br.close();
         fr.close();
-            printFile(file);
+            HelloWorldPrinter gwp = new HelloWorldPrinter();
+           gwp.initOrder( ordList, order_id, PaymentMethod);
+            gwp.startPrinting();
     }
         catch(Exception e){
             System.out.println(e);
@@ -86,7 +93,8 @@ public class PrintBill {
     }
     
     public static void printFile(File file){
-            FileInputStream psStream=null;
+        
+           FileInputStream psStream=null;
             try {
                psStream = new FileInputStream(file);
             } catch (FileNotFoundException ffne) {
@@ -95,31 +103,22 @@ public class PrintBill {
                 return;
             }
 
-            DocFlavor psInFormat = DocFlavor.INPUT_STREAM.TEXT_PLAIN_UTF_8;
-            SimpleDoc SD = new SimpleDoc(psStream, psInFormat, null);
+            DocFlavor psInFormat = DocFlavor.INPUT_STREAM.AUTOSENSE;
+            Doc SD = new SimpleDoc(psStream, psInFormat, null);
             
             PrintRequestAttributeSet aset = 
                     new HashPrintRequestAttributeSet();
             aset.add(new Copies(1));
-            PrintService[] services = 
-              PrintServiceLookup.lookupPrintServices(psInFormat, aset);
-            if (services.length > 0) {
-                DocPrintJob job = services[0].createPrintJob();
+            aset.add(MediaSizeName.ISO_A5);
+            PrintService services = 
+              PrintServiceLookup.lookupDefaultPrintService(); 
+            
+                DocPrintJob job = services.createPrintJob();
                try {
                     job.print(SD, aset);
                } 
                catch (PrintException pe) {
                }
-            }
-
-       
-    }
-    
-    public static void main(String[] args) {
         
-    
     }
-    
-    
-    
 }
