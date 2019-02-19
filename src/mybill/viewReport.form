@@ -47,11 +47,13 @@
                               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                               <Component id="SearchButton" min="-2" pref="143" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="ExportButton" min="-2" pref="136" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="BackButton" min="-2" pref="135" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabel3" alignment="0" min="-2" pref="189" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="918" max="32767" attributes="0"/>
+                      <EmptySpace pref="764" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -70,6 +72,7 @@
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="BackButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="SearchButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ExportButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
@@ -236,6 +239,14 @@
           <Dimension value="[350, 350]"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="ExportButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Export Report"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ExportButtonActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

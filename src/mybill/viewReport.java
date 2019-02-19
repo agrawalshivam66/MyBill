@@ -5,16 +5,26 @@
  */
 package mybill;
 
-import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CreationHelper;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
 /**
  *
@@ -41,8 +51,8 @@ public class viewReport extends javax.swing.JFrame {
          String EndDate = dateChooserEnd.getText();
          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
          LocalDate startDate = LocalDate.parse(StartDate, dtf);
-          LocalDate endDate = LocalDate.parse(EndDate, dtf);
-         for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1))
+         LocalDate endDate = LocalDate.parse(EndDate, dtf);
+         for (LocalDate date = startDate; date.isBefore(endDate)||date.isEqual(endDate); date = date.plusDays(1))
             {
                 String ord_date = date.format(dtf);
                 ArrayList<Order> ordList = orderDao.FindOrderDate(ord_date);
@@ -59,7 +69,7 @@ public class viewReport extends javax.swing.JFrame {
                 float price = ord.price;
                 String payment_method = ord.payment_method;
                 
-            Object[] item={Order_id, barcode_id, product_name, time, date, mrp, discount, quantity, price, payment_method};
+            Object[] item={Order_id, barcode_id, product_name, time, ord_date, mrp, discount, quantity, price, payment_method};
             model.addRow(item);
             }
             }
@@ -88,6 +98,7 @@ public class viewReport extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         dateChooserEnd = new datechooser.beans.DateChooserCombo();
+        ExportButton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -157,6 +168,13 @@ public class viewReport extends javax.swing.JFrame {
 
         dateChooserEnd.setCalendarPreferredSize(new java.awt.Dimension(350, 350));
 
+        ExportButton.setText("Export Report");
+        ExportButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -178,9 +196,11 @@ public class viewReport extends javax.swing.JFrame {
                                 .addGap(43, 43, 43)
                                 .addComponent(SearchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
+                                .addComponent(ExportButton, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(918, Short.MAX_VALUE))))
+                        .addContainerGap(764, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +214,8 @@ public class viewReport extends javax.swing.JFrame {
                             .addComponent(dateChooserStart, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(BackButton)
-                                .addComponent(SearchButton)))
+                                .addComponent(SearchButton)
+                                .addComponent(ExportButton)))
                         .addComponent(jLabel1))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(jLabel5)
@@ -225,6 +246,67 @@ public class viewReport extends javax.swing.JFrame {
        DisplayOrder();
         
     }//GEN-LAST:event_SearchButtonActionPerformed
+
+    private void ExportButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportButtonActionPerformed
+        // TODO add your handling code here:
+            DefaultTableModel dtm = (DefaultTableModel)OrderTable.getModel();
+            Workbook wb = new HSSFWorkbook();
+            CreationHelper createhelper = wb.getCreationHelper();
+            Sheet sheet = wb.createSheet("new sheet");
+            Row row = null;
+            Cell cell = null;
+            Row header = sheet.createRow(0);
+            header.createCell(0).setCellValue("Order ID");
+            header.createCell(1).setCellValue("Barcode ID");
+            header.createCell(2).setCellValue("Product Name");
+            header.createCell(3).setCellValue("Date");
+            header.createCell(4).setCellValue("MRP");
+            header.createCell(5).setCellValue("Discount");
+            header.createCell(6).setCellValue("Quantity");
+            header.createCell(7).setCellValue("Price");
+            header.createCell(8).setCellValue("Payment Method");
+             
+            for (int i=1;i <= dtm.getRowCount();i++) {
+                row = sheet.createRow(i);
+                for (int j=0;j<dtm.getColumnCount();j++) {
+                    cell = row.createCell(j);
+                    
+                    cell.setCellValue(String.valueOf(dtm.getValueAt(i-1, j)));
+                }
+            }
+
+            try{
+                
+                JFrame parentFrame = new JFrame();
+
+                JFileChooser fileChooser = new JFileChooser();
+                
+                fileChooser.setDialogTitle("Select where you want to generate the report");   
+                String path="";
+                int userSelection = fileChooser.showSaveDialog(parentFrame);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
+                    path = fileToSave.getAbsolutePath();
+                    path.replaceAll(".xls", "");
+                    }
+                else{
+                    return;
+                }
+             
+            File file = new File(path+".xls");
+            FileOutputStream out = new FileOutputStream(path+".xls");
+            wb.write(out);
+            out.close();
+            JOptionPane.showMessageDialog(viewReport.this,"Report sucessfully generated");
+            }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(viewReport.this,"Sorry Error occured");
+        } 
+            
+    }//GEN-LAST:event_ExportButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -266,6 +348,7 @@ public class viewReport extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackButton;
+    private javax.swing.JButton ExportButton;
     private javax.swing.JTable OrderTable;
     private javax.swing.JButton SearchButton;
     private datechooser.beans.DateChooserCombo dateChooserEnd;
