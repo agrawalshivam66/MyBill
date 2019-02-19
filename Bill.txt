@@ -3,9 +3,9 @@
 Bahavddihpur, Patel Nagar, Akbarpur
 Uttar Pradesh, pin-224122, mob-9616454925
 
-      Date- 18/02/2019
-      Order ID- 1550509999550
-      Payment method- Card
+      Date- 20/02/2019
+      Order ID- 1550606795972
+      Payment method- Cash
 
         Product Name   Quantity      Price 
        dhbsdjhbsjhbj          1    10000.0 

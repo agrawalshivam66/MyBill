@@ -7,7 +7,6 @@ package mybill;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -91,7 +90,7 @@ public class editProduct extends javax.swing.JFrame {
 
         totalUnits_textField.setText("1");
 
-        editProduct_button.setText("Edit Product");
+        editProduct_button.setText("Update");
         editProduct_button.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 editProduct_buttonActionPerformed(evt);
@@ -139,12 +138,12 @@ public class editProduct extends javax.swing.JFrame {
                         .addGap(177, 177, 177)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addComponent(editProduct_button)
+                        .addGap(97, 97, 97)
+                        .addComponent(editProduct_button, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE)))
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)))
                 .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

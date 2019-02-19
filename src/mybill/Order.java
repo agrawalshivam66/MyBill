@@ -19,6 +19,7 @@ public class Order {
         int quantity = 0;
         float price = 0;
         String payment_method="Cash"; 
+        String Order_id = "";
 
     public Order(String barcode_id, String product_name,  String time, String date, int mrp, int discount, int quantity, float price, String payment_method){
         this.product_name = product_name;

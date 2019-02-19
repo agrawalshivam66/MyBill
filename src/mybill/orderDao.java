@@ -89,6 +89,49 @@ public class orderDao {
         
         return ordList;
     }
+       
+       public static ArrayList<Order> FindOrderDate(String date){
+        ArrayList<Order> ordList = new ArrayList<>();
+        String sql = "SELECT * FROM orderbill where order_date='"+date+"';";
+        String product_name="";
+        String payment_method;
+        String barcode_id="";
+        String time = "";
+        String OrderId="";
+        int mrp=0;
+        int discount = 0;
+        int quantity = 0;
+        float price = 0; 
+        try {
+            Connection conn = orderDB.getConnection();     
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql);
+           
+            while (rs.next()) {
+                barcode_id=rs.getString("barcode_id");
+                product_name=rs.getString("product_name");
+                time = rs.getString("order_time");
+                OrderId = rs.getString("order_id");
+                mrp = rs.getInt("mrp");
+                discount = rs.getInt("discount");
+                quantity = rs.getInt("quantity");
+                price = rs.getFloat("price");
+                payment_method = rs.getString("payment_method");
+                
+                Order odr = new Order(barcode_id, product_name, time, date, mrp, discount, quantity, price, payment_method);
+                odr.Order_id=OrderId;
+                ordList.add(odr);
+            }
+            conn.close();
+             
+        } 
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+        return ordList;
+    }
 
 }
 
