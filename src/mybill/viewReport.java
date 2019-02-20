@@ -5,6 +5,7 @@
  */
 package mybill;
 
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,6 +48,8 @@ public class viewReport extends javax.swing.JFrame {
     }
     
      private void DisplayOrder(){
+         DefaultTableModel model = (DefaultTableModel) OrderTable.getModel();
+         model.setRowCount(0);
          String StartDate = dateChooserStart.getText();
          String EndDate = dateChooserEnd.getText();
          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -56,8 +59,7 @@ public class viewReport extends javax.swing.JFrame {
             {
                 String ord_date = date.format(dtf);
                 ArrayList<Order> ordList = orderDao.FindOrderDate(ord_date);
-           
-            DefaultTableModel model = (DefaultTableModel) OrderTable.getModel();
+          
             for (Order ord : ordList){ 
                 String barcode_id = ord.barcode_id;
                 String product_name = ord.product_name;
@@ -259,18 +261,19 @@ public class viewReport extends javax.swing.JFrame {
             header.createCell(0).setCellValue("Order ID");
             header.createCell(1).setCellValue("Barcode ID");
             header.createCell(2).setCellValue("Product Name");
-            header.createCell(3).setCellValue("Date");
-            header.createCell(4).setCellValue("MRP");
-            header.createCell(5).setCellValue("Discount");
-            header.createCell(6).setCellValue("Quantity");
-            header.createCell(7).setCellValue("Price");
-            header.createCell(8).setCellValue("Payment Method");
+            header.createCell(3).setCellValue("Time");
+            header.createCell(4).setCellValue("Date");
+            header.createCell(5).setCellValue("MRP");
+            header.createCell(6).setCellValue("Discount");
+            header.createCell(7).setCellValue("Quantity");
+            header.createCell(8).setCellValue("Price");
+            header.createCell(9).setCellValue("Payment Method");
              
             for (int i=1;i <= dtm.getRowCount();i++) {
                 row = sheet.createRow(i);
                 for (int j=0;j<dtm.getColumnCount();j++) {
                     cell = row.createCell(j);
-                    
+                    System.out.println(dtm.getValueAt(i-1, j));
                     cell.setCellValue(String.valueOf(dtm.getValueAt(i-1, j)));
                 }
             }
@@ -280,16 +283,15 @@ public class viewReport extends javax.swing.JFrame {
                 JFrame parentFrame = new JFrame();
 
                 JFileChooser fileChooser = new JFileChooser();
-                
+                fileChooser.setPreferredSize(new Dimension(800,600));
                 fileChooser.setDialogTitle("Select where you want to generate the report");   
                 String path="";
                 int userSelection = fileChooser.showSaveDialog(parentFrame);
 
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     File fileToSave = fileChooser.getSelectedFile();
-                    System.out.println("Save as file: " + fileToSave.getAbsolutePath());
                     path = fileToSave.getAbsolutePath();
-                    path.replaceAll(".xls", "");
+                    path = path.replaceAll(".xls", "");
                     }
                 else{
                     return;
