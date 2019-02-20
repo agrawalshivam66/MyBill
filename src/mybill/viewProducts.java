@@ -5,11 +5,18 @@
  */
 package mybill;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableCellRenderer;
+
 /**
  *
  * @author Shivam-PC
@@ -20,16 +27,20 @@ public class viewProducts extends javax.swing.JFrame {
      * Creates new form viewProducts
      */
     public viewProducts() {
-         setExtendedState(this.MAXIMIZED_BOTH); 
+        setExtendedState(this.MAXIMIZED_BOTH); 
         initComponents();
+        AllProductsTable.setRowSelectionAllowed(true);
+        AllProductsTable.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         displayProducts();
     }
       void displayProducts(){
+           
            ArrayList<product> prod = ProductDao.selectAllProducts();
             if (prod==null){
                 JOptionPane.showMessageDialog(viewProducts.this,"Sorry no product not found");
             }
             DefaultTableModel model = (DefaultTableModel) AllProductsTable.getModel();
+            model.setRowCount(0);
             for (product pro : prod){ 
             int mrp = pro.getMrp();
             int discount = pro.getDiscount();
@@ -37,6 +48,10 @@ public class viewProducts extends javax.swing.JFrame {
             Object[] item={pro.getBarcode_id(),pro.getProduct_name(),pro.getProduct_desc(),
                 mrp, discount, total_unit};
             model.addRow(item);
+            
+            if (total_unit <= Integer.parseInt(MinQuantityTextbox.getText().trim())){
+                AllProductsTable.getSelectionModel().addSelectionInterval(model.getRowCount()-1, model.getRowCount()-1);
+            }
             }
       }
       
@@ -59,6 +74,9 @@ public class viewProducts extends javax.swing.JFrame {
         AllProductsTable = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        MinQuantityTextbox = new javax.swing.JTextField();
+        HighlightButton = new javax.swing.JButton();
 
         jButton1.setText("jButton1");
 
@@ -87,6 +105,9 @@ public class viewProducts extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        AllProductsTable.setGridColor(new java.awt.Color(204, 204, 204));
+        AllProductsTable.setName(""); // NOI18N
+        AllProductsTable.setSelectionBackground(new java.awt.Color(255, 112, 112));
         AllProductsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(AllProductsTable);
         if (AllProductsTable.getColumnModel().getColumnCount() > 0) {
@@ -105,20 +126,44 @@ public class viewProducts extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("View Products");
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setText("Highlight Products with total units:");
+
+        MinQuantityTextbox.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        MinQuantityTextbox.setText("0");
+        MinQuantityTextbox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                MinQuantityTextboxKeyPressed(evt);
+            }
+        });
+
+        HighlightButton.setText("Highlight");
+        HighlightButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HighlightButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 969, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(376, 376, 376)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(MinQuantityTextbox, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(HighlightButton, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 331, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,10 +171,14 @@ public class viewProducts extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(MinQuantityTextbox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addComponent(HighlightButton))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addGap(79, 79, 79))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -139,6 +188,18 @@ public class viewProducts extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void HighlightButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HighlightButtonActionPerformed
+        // TODO add your handling code here:
+        displayProducts();
+    }//GEN-LAST:event_HighlightButtonActionPerformed
+
+    private void MinQuantityTextboxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_MinQuantityTextboxKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            displayProducts();
+        }
+    }//GEN-LAST:event_MinQuantityTextboxKeyPressed
 
     /**
      * @param args the command line arguments
@@ -177,9 +238,12 @@ public class viewProducts extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable AllProductsTable;
+    private javax.swing.JButton HighlightButton;
+    private javax.swing.JTextField MinQuantityTextbox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

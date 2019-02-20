@@ -46,8 +46,9 @@ public class editProduct extends javax.swing.JFrame {
         disount_textField = new javax.swing.JTextField();
         totalUnits_textField = new javax.swing.JTextField();
         editProduct_button = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        ClearButton = new javax.swing.JButton();
+        BackButton = new javax.swing.JButton();
+        DeleteButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -55,9 +56,9 @@ public class editProduct extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Edit Product");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 9;
+        gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 9;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 22, 0, 0);
         getContentPane().add(jLabel1, gridBagConstraints);
@@ -108,13 +109,13 @@ public class editProduct extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 198;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(30, 9, 0, 95);
+        gridBagConstraints.insets = new java.awt.Insets(30, 69, 0, 0);
         getContentPane().add(barcode_textField, gridBagConstraints);
 
         productName_textField.addActionListener(new java.awt.event.ActionListener() {
@@ -123,31 +124,31 @@ public class editProduct extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 3;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 198;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 9, 0, 95);
+        gridBagConstraints.insets = new java.awt.Insets(18, 69, 0, 0);
         getContentPane().add(productName_textField, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 198;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 9, 0, 95);
+        gridBagConstraints.insets = new java.awt.Insets(18, 69, 0, 0);
         getContentPane().add(productDesc_textField, gridBagConstraints);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 7;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 198;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 9, 0, 95);
+        gridBagConstraints.insets = new java.awt.Insets(18, 69, 0, 0);
         getContentPane().add(mrp_textField, gridBagConstraints);
 
         jLabel7.setText("Discount");
@@ -175,24 +176,24 @@ public class editProduct extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 9;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 198;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 9, 0, 95);
+        gridBagConstraints.insets = new java.awt.Insets(18, 69, 0, 0);
         getContentPane().add(disount_textField, gridBagConstraints);
 
         totalUnits_textField.setText("1");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridx = 7;
         gridBagConstraints.gridy = 11;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 5;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.ipadx = 198;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 9, 0, 95);
+        gridBagConstraints.insets = new java.awt.Insets(18, 69, 0, 0);
         getContentPane().add(totalUnits_textField, gridBagConstraints);
 
         editProduct_button.setText("Update");
@@ -202,42 +203,57 @@ public class editProduct extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 13;
-        gridBagConstraints.gridwidth = 8;
-        gridBagConstraints.ipadx = 44;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.ipadx = 38;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 5, 12, 0);
+        gridBagConstraints.insets = new java.awt.Insets(18, 42, 12, 0);
         getContentPane().add(editProduct_button, gridBagConstraints);
 
-        jButton1.setText("Clear");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        ClearButton.setText("Clear");
+        ClearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                ClearButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 16;
+        gridBagConstraints.gridx = 8;
         gridBagConstraints.gridy = 13;
-        gridBagConstraints.ipadx = 16;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.ipadx = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 12, 12, 0);
-        getContentPane().add(jButton1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(18, 6, 12, 0);
+        getContentPane().add(ClearButton, gridBagConstraints);
 
-        jButton2.setText("Back");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        BackButton.setText("Back");
+        BackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                BackButtonActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 17;
+        gridBagConstraints.gridx = 11;
         gridBagConstraints.gridy = 13;
-        gridBagConstraints.gridwidth = 10;
-        gridBagConstraints.ipadx = 44;
+        gridBagConstraints.gridwidth = 6;
+        gridBagConstraints.ipadx = 12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 12, 12, 95);
-        getContentPane().add(jButton2, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(18, 12, 12, 93);
+        getContentPane().add(BackButton, gridBagConstraints);
+
+        DeleteButton.setText("Delete");
+        DeleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 13;
+        gridBagConstraints.ipadx = 23;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(18, 11, 12, 0);
+        getContentPane().add(DeleteButton, gridBagConstraints);
 
         pack();
         setLocationRelativeTo(null);
@@ -292,15 +308,15 @@ public class editProduct extends javax.swing.JFrame {
         barcode_textField.requestFocusInWindow();
     }
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
         // TODO add your handling code here:
         clearText();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ClearButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
         // TODO add your handling code here:
 	this.dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_BackButtonActionPerformed
 
     private void barcode_textFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_barcode_textFieldKeyPressed
         // TODO add your handling code here:
@@ -318,6 +334,26 @@ public class editProduct extends javax.swing.JFrame {
            
         }
     }//GEN-LAST:event_barcode_textFieldKeyPressed
+
+    private void DeleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteButtonActionPerformed
+        // TODO add your handling code here:
+          try{
+        String barcode_id=barcode_textField.getText().trim();
+		
+	int i=ProductDao.delete(barcode_id);
+			if(i>0){
+				JOptionPane.showMessageDialog(editProduct.this,"Product Deleted successfully!");
+				clearText();
+				
+			}else{
+				JOptionPane.showMessageDialog(editProduct.this,"Sorry, unable to delete!");
+			}
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(editProduct.this,"Sorry Product not fount");
+            clearText();
+        }
+    }//GEN-LAST:event_DeleteButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -356,11 +392,12 @@ public class editProduct extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BackButton;
+    private javax.swing.JButton ClearButton;
+    private javax.swing.JButton DeleteButton;
     private javax.swing.JTextField barcode_textField;
     private javax.swing.JTextField disount_textField;
     private javax.swing.JButton editProduct_button;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
