@@ -40,7 +40,7 @@ public class HelloWorldPrinter implements Printable{
  
         g2d.setFont(new Font("Arial",Font.BOLD,15));
         int yshift = 15;
-        g.drawString ("VITUS MART", 85, yshift);
+        g.drawString ("VITUS MART", 100, yshift);
         yshift += 15;
         g2d.setFont(new Font("Monospaced",Font.BOLD,10));
  
@@ -79,6 +79,8 @@ public class HelloWorldPrinter implements Printable{
         yshift += 15;
         g.drawString("Total Price: Rs."+String.valueOf(total_price), 10, yshift);
         g2d.setFont(new Font("Monospaced",Font.PLAIN,10));
+        yshift += 15;
+        g.drawString("Total price is inclusive of GST", 10, yshift);
         yshift += 15;
         g.drawString("	Thank You, Visit Again :) ", 80, yshift);
  
