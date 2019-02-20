@@ -164,7 +164,7 @@ public class AdminLogin extends javax.swing.JFrame {
         if(evt.getKeyCode() == KeyEvent.VK_ENTER) {
             	String name=userField.getText();
 			String password=String.valueOf(passwordField.getPassword());
-			if(name.equals("admin")&&password.equals("admin123")){
+			if(name.equals("admin")&&password.equals("vitusmart123")){
 				frontPage.main(new String[]{});
 				this.dispose();
 			}else{

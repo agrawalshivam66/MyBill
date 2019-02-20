@@ -19,9 +19,9 @@
     <jar href="lib/poi-ooxml-schemas-3.17.jar" size="5924600" download="eager" />
     <jar href="lib/sqlite-jdbc-3.23.1.jar" size="6733696" download="eager" />
     <jar href="lib/xmlbeans-2.6.0.jar" size="2730866" download="eager" />
-    <jar href="mybill.jar" size="11331673" download="eager" />
+    <jar href="mybill.jar" size="11331695" download="eager" />
   </resources>
-  <applet-desc  width="800" height="600" main-class="mybill.AdminLogin"  name="mybill" >
+  <applet-desc  width="800" height="600" main-class="mybill.frontPage"  name="mybill" >
   </applet-desc>
   <update check="always"/>
 </jnlp>

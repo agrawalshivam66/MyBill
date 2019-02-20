@@ -130,7 +130,7 @@ public class createBill extends javax.swing.JFrame {
         });
 
         label.setFont(new java.awt.Font("Bodoni MT Black", 1, 36)); // NOI18N
-        label.setText("Vitous Mall");
+        label.setText("Vitus Mart");
 
         barcode_textfield.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,12 +295,10 @@ public class createBill extends javax.swing.JFrame {
                 return;
             }
             DefaultTableModel model = (DefaultTableModel) productTable.getModel();
-            int price = 0;
             int mrp = pro.getMrp();
             int discount = pro.getDiscount();
-            price = mrp - (mrp*discount/100);
             Object[] item={pro.getBarcode_id(),pro.getProduct_name(),pro.getProduct_desc(),
-                mrp, discount, 1, price};
+                mrp, discount, 1, 0.0};
             model.addRow(item);
             
             setfocus();
@@ -381,8 +379,11 @@ public class createBill extends javax.swing.JFrame {
             }
             }
          if(statusOrder > 0 && statusUpdate > 0){
+                    HelloWorldPrinter hwp = new HelloWorldPrinter();
+                    hwp.initOrder( ordList, order_id, paymentMethod);
+                    hwp.startPrinting();       
                     PrintBill.writeFile(ordList, order_id, paymentMethod);
-           
+                    
                     JOptionPane.showMessageDialog(createBill.this,"Order successfully!");
                     this.dispose();
                     createBill.main(new String[]{});

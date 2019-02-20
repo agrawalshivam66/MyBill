@@ -23,6 +23,9 @@ public class HelloWorldPrinter implements Printable{
         this.ordList = ordList;
         this.order_id = order_id;
         this.PaymentMethod = PaymentMethod;
+         for (Order ord : ordList){ 
+                total_price += ord.price;
+        }
     }
  
     @Override
@@ -71,7 +74,6 @@ public class HelloWorldPrinter implements Printable{
                 float price = ord.price;
                 int mrp = ord.mrp;
                 int discount = ord.discount;
-                total_price += price;
                 g.drawString(String.format("%20s %3s %7s %4s %9s", product_name,String.valueOf(quantity),String.valueOf(mrp),String.valueOf(discount),String.valueOf(price)),1,yshift);
                 
         }
