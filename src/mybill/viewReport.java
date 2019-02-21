@@ -251,27 +251,53 @@ public class viewReport extends javax.swing.JFrame {
             DefaultTableModel dtm = (DefaultTableModel)OrderTable.getModel();
             Workbook wb = new HSSFWorkbook();
             CreationHelper createhelper = wb.getCreationHelper();
-            Sheet sheet = wb.createSheet("new sheet");
+            Sheet sheet = wb.createSheet("Order Report Sheet");
             Row row = null;
             Cell cell = null;
             Row header = sheet.createRow(0);
             header.createCell(0).setCellValue("Order ID");
+            sheet.setColumnWidth(0, 4000);
             header.createCell(1).setCellValue("Barcode ID");
+            sheet.setColumnWidth(1, 4000);
             header.createCell(2).setCellValue("Product Name");
+            sheet.setColumnWidth(2, 7000);
             header.createCell(3).setCellValue("Time");
+            sheet.setColumnWidth(3, 3000);
             header.createCell(4).setCellValue("Date");
+            sheet.setColumnWidth(4, 3000);
             header.createCell(5).setCellValue("MRP");
+            sheet.setColumnWidth(5, 3000);
             header.createCell(6).setCellValue("Discount");
+            sheet.setColumnWidth(6, 2000);
             header.createCell(7).setCellValue("Quantity");
+            sheet.setColumnWidth(7, 2000);
             header.createCell(8).setCellValue("Price");
+            sheet.setColumnWidth(8, 3000);
             header.createCell(9).setCellValue("Payment Method");
+            sheet.setColumnWidth(9, 4000);
+            
+            
+            
              
             for (int i=1;i <= dtm.getRowCount();i++) {
                 row = sheet.createRow(i);
                 for (int j=0;j<dtm.getColumnCount();j++) {
                     cell = row.createCell(j);
-                    System.out.println(dtm.getValueAt(i-1, j));
-                    cell.setCellValue(String.valueOf(dtm.getValueAt(i-1, j)));
+                    System.out.println(dtm.getValueAt(i-1, j).getClass().getSimpleName());
+                    switch (dtm.getValueAt(i-1, j).getClass().getSimpleName()){
+                        case "Integer":
+                             cell.setCellValue(Integer.parseInt((String.valueOf(dtm.getValueAt(i-1, j)))));
+                             break;
+                        case "String":
+                             cell.setCellValue(String.valueOf(dtm.getValueAt(i-1, j)));
+                             break;
+                        case "Float":
+                             cell.setCellValue(Float.parseFloat(String.valueOf(dtm.getValueAt(i-1, j))));
+                             break;
+                        default:
+                             cell.setCellValue(String.valueOf(dtm.getValueAt(i-1, j)));
+                             break;
+                    }
                 }
             }
 
