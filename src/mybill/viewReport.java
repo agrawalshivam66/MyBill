@@ -283,7 +283,6 @@ public class viewReport extends javax.swing.JFrame {
                 row = sheet.createRow(i);
                 for (int j=0;j<dtm.getColumnCount();j++) {
                     cell = row.createCell(j);
-                    System.out.println(dtm.getValueAt(i-1, j).getClass().getSimpleName());
                     switch (dtm.getValueAt(i-1, j).getClass().getSimpleName()){
                         case "Integer":
                              cell.setCellValue(Integer.parseInt((String.valueOf(dtm.getValueAt(i-1, j)))));

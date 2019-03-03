@@ -138,5 +138,30 @@ public class ProductDao {
         
         return pro;
     }
+    
+    public static ArrayList<String[]> ProductsNames(){
+        ArrayList<String[]> productList = new ArrayList<String[]>();
+        String sql = "SELECT product_name,barcode_id FROM product;";
+        
+        try {
+            Connection conn = productDB.getConnection();     
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql);
+           
+            while (rs.next()) {
+                String[] productDetails=new String[2];
+                productDetails[1]=rs.getString("product_name");
+                productDetails[0]=rs.getString("barcode_id");
+                productList.add(productDetails);
+            }
+            conn.close();
+        } 
+        catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+        
+        return productList;
+    }
 	}
 

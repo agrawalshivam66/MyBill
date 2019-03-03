@@ -26,5 +26,13 @@ public class orderProduct {
         this.discount = discount;
         this.quantity = quantity;
     }
+            
+            /* For testing
+            public static void ordermillion(){
+                for (int i = 0;i<=10000; i++){
+                    System.out.print(i);
+                int statusOrder = ProductDao.save(String.valueOf(i), "Hello12345", "TEST the product name is",  100, 0, 100);
+                }
+            }*/
     
 }
