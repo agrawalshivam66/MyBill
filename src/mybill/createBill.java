@@ -6,6 +6,7 @@
 package mybill;
 
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.JTextComponent;
 
 /**
  *
@@ -21,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class createBill extends javax.swing.JFrame {
     ArrayList<orderProduct> product_list = new ArrayList<>();
-    ArrayList<String[]> productNames = ProductDao.ProductsNames();
+    ArrayList<String[]> productNames = new ArrayList<>();
                         
     /**
      * Creates new form createBill
@@ -35,7 +37,29 @@ public class createBill extends javax.swing.JFrame {
         group.add(cardButton);
         cashButton.setSelected(true);
         setfocus();
-    }    
+        ArrayList<String[]> productNames = ProductDao.ProductsNames();
+        for (String[] productDetails : productNames){
+             ProductName_jComboBox.addItem(productDetails[1]);
+             }
+      
+        
+        JTextComponent editor = (JTextComponent) ProductName_jComboBox.getEditor().getEditorComponent();
+        editor.setText("");
+        editor.addKeyListener(new KeyAdapter() {
+            public void keyTyped (KeyEvent evt) {
+      // your code 
+               String typed =  editor.getText().toLowerCase();
+               ProductName_jComboBox.removeAllItems();
+               editor.setText(typed);
+               for (String[] productDetails : productNames){
+                   if(productDetails[1].toLowerCase().contains(typed)){
+                        ProductName_jComboBox.addItem(productDetails[1]);
+             }
+             }
+              
+             }
+        });
+        }    
     
     void setfocus(){
         barcode_textfield.setText("");
@@ -189,7 +213,9 @@ public class createBill extends javax.swing.JFrame {
 
         jLabel4.setText("Product Name");
 
-        ProductName_jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ProductName_jComboBox.setEditable(true);
+        ProductName_jComboBox.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        ProductName_jComboBox.setDebugGraphicsOptions(javax.swing.DebugGraphics.FLASH_OPTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -409,7 +435,7 @@ public class createBill extends javax.swing.JFrame {
     private void cashButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cashButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cashButtonActionPerformed
-
+    
     /**
      * @param args the command line arguments
      */
