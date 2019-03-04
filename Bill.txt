@@ -3,21 +3,17 @@
 Bahavddihpur, Patel Nagar, Akbarpur
 Uttar Pradesh, pin-224122, mob-9616454925
 
-      Date- 23/02/2019
-      Order ID- 1550933386163
+      Date- 05/03/2019
+      Order ID- 1551731509310
       Payment method- Card
 
         Product Name   Quantity      Price 
-                sbhb          1       95.0 
-          Hello12345          1      100.0 
-          Hello12345          1      100.0 
-          Hello12345          1      100.0 
-          Hello12345          1      100.0 
-          Hello12345          1      100.0 
-          Hello12345          1      100.0 
+              shivam          1     1000.0 
+              matrix          1       47.5 
+           classmate          1      100.0 
           Hello12345          1      100.0 
 
-                  Total price-   Rs.795.0 
+                  Total price-  Rs.1247.5 
 
 
 	Thank You, Visit Again :) 

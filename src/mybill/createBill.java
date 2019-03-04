@@ -57,16 +57,49 @@ public class createBill extends javax.swing.JFrame {
              }
              }
              editor.setText(typed);
-            
+             
              ProductName_jComboBox.showPopup();
              
              }
               
             public void keyReleased(KeyEvent evt){
-            if (evt.getKeyCode() == KeyEvent.VK_ENTER) { 
-                editor.setText(ProductName_jComboBox.getSelectedItem().toString());
+            if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+                String productName=ProductName_jComboBox.getSelectedItem().toString();
+                editor.setText(productName);
+                String barcode="";
                 ProductName_jComboBox.hidePopup();
+                for (String[] productDetails : productNames){
+                    if(productDetails[1].equalsIgnoreCase(productName)){
+                        barcode=productDetails[0];
+                    }
+             }
+            for(int i = 0; i < productTable.getRowCount();i++){
+                DefaultTableModel model = (DefaultTableModel)productTable.getModel();
+                String Barcode_id = model.getValueAt(i, 0).toString();
+                if(Barcode_id.equalsIgnoreCase(barcode)){
+                    int quantity = Integer.parseInt( model.getValueAt(i, 5).toString());
+                    productTable.setValueAt(quantity+1, i, 5);
+                    setfocus();
+                    return;
+                }
+             }
+            product pro = ProductDao.selectAll(barcode);
+            if (pro==null){
+                JOptionPane.showMessageDialog(createBill.this,"Sorry product not found");
+                setfocus();
+                return;
             }
+            DefaultTableModel model = (DefaultTableModel) productTable.getModel();
+            int mrp = pro.getMrp();
+            int discount = pro.getDiscount();
+            Object[] item={pro.getBarcode_id(),pro.getProduct_name(),pro.getProduct_desc(),
+                mrp, discount, 1, 0.0};
+            model.addRow(item);
+            
+            setfocus();
+            editor.setText("");
+            }
+            
             }
         });
         }    
@@ -90,6 +123,7 @@ public class createBill extends javax.swing.JFrame {
             }
         }
         PriceLabel.setText(String.valueOf(total_price));
+       
     }
     /**
      * This method is called from within the constructor to initialize the form.
