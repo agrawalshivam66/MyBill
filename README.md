@@ -1,4 +1,4 @@
-# mybill
+# MyBill
 Billing sofware
 Technologies like sqlite3 connectivity and java swing used.
 Backend database uses sqlite 3 for saving data.
